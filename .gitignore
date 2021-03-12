@@ -12,3 +12,7 @@ docs/site
 
 .DS_Store
 .idea
+
+*.egg-info/
+
+build/
