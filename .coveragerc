@@ -1,0 +1,20 @@
+[run]
+source = django_basket
+branch = 1
+
+[report]
+omit =
+    django_basket/migrations/*
+    django_basket/tests/*
+    django_basket/*/__init__.py
+    example_apps/*
+    .venv/*
+    env/*
+    setup.py
+include = django_basket/*
+ignore_errors = True
+exclude_lines =
+    if self.debug:
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == .__main__.:
