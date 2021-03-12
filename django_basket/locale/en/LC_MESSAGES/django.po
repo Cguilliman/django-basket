@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-16 11:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: django_basket/apps.py:7 django_basket/models.py:131
+#: django_basket/models.py:162
+msgid "Basket"
+msgstr ""
+
+#: django_basket/models.py:59
+msgid "Dynamic product"
+msgstr ""
+
+#: django_basket/models.py:60
+msgid "Dynamic products"
+msgstr ""
+
+#: django_basket/models.py:97
+msgid "Created at"
+msgstr ""
+
+#: django_basket/models.py:101
+msgid "Updated at"
+msgstr ""
+
+#: django_basket/models.py:106
+msgid "User"
+msgstr ""
+
+#: django_basket/models.py:113
+msgid "Product"
+msgstr ""
+
+#: django_basket/models.py:118
+msgid "Price"
+msgstr ""
+
+#: django_basket/models.py:124
+msgid "Session id"
+msgstr ""
+
+#: django_basket/models.py:132 django_basket/models.py:163
+msgid "Baskets"
+msgstr ""
+
+#: django_basket/models.py:153
+msgid "Task id"
+msgstr ""
+
+#: django_basket/models.py:157
+msgid "Is revoked"
+msgstr ""
