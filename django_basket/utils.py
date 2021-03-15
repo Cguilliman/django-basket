@@ -20,6 +20,7 @@ def load_module(
 
 
 def settings_function(func_path):
+    # TODO: Make collection of executable
     def wrapper(func):
         def wrapped(*args, **kwargs):
             _func = func

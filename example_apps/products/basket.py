@@ -55,7 +55,7 @@ class DynamicBasketItemHelper(DefaultDynamicBasketItem):
         return super().items_adding(items)
 
 
-def create_item(basket: "BaseBasket", validated_data: List[Dict]) -> List[BasketItem]:
+def create_items(basket: "BaseBasket", validated_data: List[Dict]) -> List[BasketItem]:
     # {"basket_items": [{"product": 1, "amount":2}]}
     adding_items = list()
     for item in validated_data:
@@ -64,11 +64,11 @@ def create_item(basket: "BaseBasket", validated_data: List[Dict]) -> List[Basket
     return adding_items
 
 
-def get_basket_items_amount(helper) -> int:
+def get_basket_items_amount(basket) -> int:
     return (
-        helper
-        .basket
+        basket
         .basket_items
-        .aggtetate(total_amount=Coalesce(Sum("amount"), 0))
+        .all()
+        .aggregate(total_amount=Coalesce(Sum("amount"), 0))
         .get("total_amount")
     )

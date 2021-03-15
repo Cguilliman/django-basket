@@ -7,6 +7,7 @@ omit =
     django_basket/migrations/*
     django_basket/tests/*
     django_basket/*/__init__.py
+    django_basket/apps.py
     example_apps/*
     .venv/*
     env/*
