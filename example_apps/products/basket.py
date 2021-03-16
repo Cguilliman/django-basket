@@ -40,19 +40,19 @@ class BasketItemHelper(DefaultBasketItemHelper):
 
 
 class DynamicBasketItemHelper(DefaultDynamicBasketItem):
-
-    def items_adding(self, items: List):
-        for item in items:
-            exist_item = BasketItem.objects.filter(
-                dynamic_basket_item__basket=self.basket,
-                product=item.product
-            ).first()
-            if exist_item:
-                exist_item.amount += item.amount
-                exist_item.price = exist_item.product.price * exist_item.amount
-                exist_item.save()
-                items.remove(item)
-        return super().items_adding(items)
+    pass
+    # def items_adding(self, items: List):
+    #     for item in items:
+    #         exist_item = BasketItem.objects.filter(
+    #             dynamic_basket_item__basket=self.basket,
+    #             product=item.product
+    #         ).first()
+    #         if exist_item:
+    #             exist_item.amount += item.amount
+    #             exist_item.price = exist_item.product.price * exist_item.amount
+    #             exist_item.save()
+    #             items.remove(item)
+    #     return super().items_adding(items)
 
 
 def create_items(basket: "BaseBasket", validated_data: List[Dict]) -> List[BasketItem]:

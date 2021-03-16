@@ -28,7 +28,7 @@ class BasketItemAggregator(BaseBasketItemHelper):
         """Create basket items, use only custom implementation"""
         creation_function = load_module(basket_settings.items_create_function)
         if not creation_function or not callable(creation_function):
-            raise NotImplemented(
+            raise AttributeError(
                 "Basket item creation is not implemented, fill in `items_create_function` setting"
             )
         return creation_function(self.basket, validated_data)
@@ -38,7 +38,7 @@ class DynamicBasketItemAggregator(BasketItemAggregator):
 
     def items_adding(self, items: Iterable[Model]) -> Iterable[Model]:
         """Add products to basket"""
-        products = DynamicBasketItemModel.create_products(items)
+        products = DynamicBasketItemModel.create_item(items)
         return super().items_adding(products)
 
     def items_total_price(self) -> Union[int, float, Decimal]:

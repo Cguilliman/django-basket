@@ -73,16 +73,6 @@ LOGIN_REDIRECT_URL = '/admin/'
 
 SESSION_ENGINE = 'django_basket.session_backend'
 DJANGO_BASKET = {
-    # # Dynamic basket items settings
-    # "is_dynamic_basket_item_field": True,
-    # "item_model": "product.models.BasketItem",
-    # "items_serializer": "product.basket.BasketItemSerializer",
-    # "item_create_serializer": "product.basket.BasketItemCreateSerializer",
-    # "items_create_function": "product.basket.create_item",
-    # # "is_delete_removing": True,
-    # # "basket_amount_calculation": "product.basket.get_basket_items_amount",
-    # "item_helper": "product.basket.DynamicBasketItemHelper",
-
     "item_model": "example_apps.products.models.BasketItem",
     "items_serializer": "example_apps.products.basket.BasketItemSerializer",
     "item_create_serializer": "example_apps.products.basket.BasketItemCreateSerializer",

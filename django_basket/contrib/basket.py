@@ -27,9 +27,9 @@ class BasketAggregator(DefaultBasketHelper):
             delegate adding process to basket item helper
             than recalculate total basket price
         """
-        adding_products = self.items_aggregator.items_adding(products)
+        adding_items = self.items_aggregator.items_adding(products)
         self.calculate_price()
-        return adding_products
+        return adding_items
 
     def add(self, item: Model) -> Model:
         """Add single basket item"""

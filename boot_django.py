@@ -96,6 +96,7 @@ def boot_django():
             # # "basket_amount_calculation": "product.basket.get_basket_items_amount",
             # "item_helper": "product.basket.DynamicBasketItemHelper",
 
+            "is_dynamic_basket_item_field": True,
             "item_model": "example_apps.products.models.BasketItem",
             "items_serializer": "example_apps.products.basket.BasketItemSerializer",
             "item_create_serializer": "example_apps.products.basket.BasketItemCreateSerializer",

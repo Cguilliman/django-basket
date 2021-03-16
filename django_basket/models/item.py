@@ -30,8 +30,9 @@ class DynamicBasketItem(models.Model):
             basket_settings.price_field_name  # `price` by default
         )
 
+    # TODO: Re-factor
     @classmethod
-    def create_products(cls, objs) -> List["DynamicBasketItem"]:
+    def create_item(cls, objs) -> List["DynamicBasketItem"]:
         """Create products and return in collection"""
         if basket_settings.is_postgres:
             # postgres db backend after bulk creation
