@@ -1,43 +1,19 @@
 from typing import *
 from decimal import Decimal
-from copy import deepcopy
 from django.test import TestCase
-from contextlib import contextmanager
 from django.test.client import RequestFactory
 from django.contrib.auth import get_user_model
 
 from django_basket.settings import basket_settings
-from django_basket.models.item import DynamicBasketItem, get_basket_item_model
-from django_basket.shortcuts import get_basket_aggregator, get_basket_from_request, get_basket_items_amount
+from django_basket.shortcuts import get_basket_aggregator, get_basket_items_amount
 from django_basket.models import BaseBasket
-from django_basket.contrib.item import BasketItemAggregator
 
-from example_apps.products.models import Product, BasketItem
-from example_apps.products.basket import create_items, DynamicBasketItemHelper
+from example_apps.products.models import Product
+from example_apps.products.basket import create_items
+from ..utils import overwrite_settings
 
 
 User = get_user_model()
-
-
-@contextmanager
-def overwrite_settings(**settings):
-    default_settings = deepcopy(basket_settings._settings)
-    try:
-        basket_settings._settings.update(settings)
-        yield
-    finally:
-        basket_settings._settings.update(default_settings)
-
-
-SIMPLE_BASKET_SETTINGS = {
-    "item_model": "example_apps.products.models.BasketItem",
-    "items_serializer": "example_apps.products.basket.BasketItemSerializer",
-    "item_create_serializer": "example_apps.products.basket.BasketItemCreateSerializer",
-    "items_create": "example_apps.products.basket.create_items",
-    "is_delete_removing": True,
-    "get_basket_items_amount": "example_apps.products.basket.get_basket_items_amount",
-    "item_helper": "example_apps.products.basket.BasketItemHelper",
-}
 
 
 class BasketAggregationTestCase(TestCase):
@@ -57,35 +33,33 @@ class BasketAggregationTestCase(TestCase):
         self.product3 = Product.objects.create(title="title3", price=3)
 
     def test_aggregator_getting(self):
-        with self.settings(DJANGO_BASKET=SIMPLE_BASKET_SETTINGS):
-            self.assertEqual(BaseBasket.objects.count(), 0)
-            get_basket_aggregator(self.request)
-            self.assertEqual(BaseBasket.objects.count(), 1)
-            created_basket = BaseBasket.objects.first()
-            self.assertEqual(created_basket.user, self.user)
-            self.assertEqual(created_basket.price, Decimal(0))
+        self.assertEqual(BaseBasket.objects.count(), 0)
+        get_basket_aggregator(self.request)
+        self.assertEqual(BaseBasket.objects.count(), 1)
+        created_basket = BaseBasket.objects.first()
+        self.assertEqual(created_basket.user, self.user)
+        self.assertEqual(created_basket.price, Decimal(0))
 
     def test_adding(self):
-        with self.settings(DJANGO_BASKET=SIMPLE_BASKET_SETTINGS):
-            self.assertEqual(BaseBasket.objects.count(), 0)
-            aggregator = get_basket_aggregator(self.request)
-            item1, item2, item3 = create_items(
-                aggregator.basket,
-                [
-                    {"product": self.product1, "amount": 1},
-                    {"product": self.product2, "amount": 3},
-                    {"product": self.product3, "amount": 5},
-                ]
-            )
-            aggregator.add(item1)
-            self.assertEqual(aggregator.basket.price, Decimal(1))
-            self.assertEqual(get_basket_items_amount(aggregator.basket), 1)
-            aggregator.add(item2)
-            self.assertEqual(aggregator.basket.price, Decimal(7))
-            self.assertEqual(get_basket_items_amount(aggregator.basket), 4)
-            aggregator.add(item3)
-            self.assertEqual(aggregator.basket.price, Decimal(22))
-            self.assertEqual(get_basket_items_amount(aggregator.basket), 9)
+        self.assertEqual(BaseBasket.objects.count(), 0)
+        aggregator = get_basket_aggregator(self.request)
+        item1, item2, item3 = create_items(
+            aggregator.basket,
+            [
+                {"product": self.product1, "amount": 1},
+                {"product": self.product2, "amount": 3},
+                {"product": self.product3, "amount": 5},
+            ]
+        )
+        aggregator.add(item1)
+        self.assertEqual(aggregator.basket.price, Decimal(1))
+        self.assertEqual(get_basket_items_amount(aggregator.basket), 1)
+        aggregator.add(item2)
+        self.assertEqual(aggregator.basket.price, Decimal(7))
+        self.assertEqual(get_basket_items_amount(aggregator.basket), 4)
+        aggregator.add(item3)
+        self.assertEqual(aggregator.basket.price, Decimal(22))
+        self.assertEqual(get_basket_items_amount(aggregator.basket), 9)
 
     def test_many_adding_and_empty(self):
         self.assertEqual(BaseBasket.objects.count(), 0)

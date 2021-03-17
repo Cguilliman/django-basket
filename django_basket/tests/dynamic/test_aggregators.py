@@ -1,32 +1,16 @@
 from typing import *
-from decimal import Decimal
-from copy import deepcopy
 from django.test import TestCase
-from contextlib import contextmanager
 from django.test.client import RequestFactory
 from django.contrib.auth import get_user_model
 
-from django_basket.settings import basket_settings
-from django_basket.models.item import DynamicBasketItem, get_basket_item_model
-from django_basket.shortcuts import get_basket_aggregator, get_basket_from_request, get_basket_items_amount
-from django_basket.models import BaseBasket
-from django_basket.contrib.item import BasketItemAggregator
+from django_basket.models.item import DynamicBasketItem
+from django_basket.shortcuts import get_basket_aggregator, get_basket_items_amount
+from django_basket.models import BaseBasket, get_basket_item_model
 
-from example_apps.products.models import Product, BasketItem
-from example_apps.products.basket import create_items, DynamicBasketItemHelper
+from example_apps.products.models import Product
 
 
 User = get_user_model()
-
-
-@contextmanager
-def overwrite_settings(**settings):
-    default_settings = deepcopy(basket_settings._settings)
-    try:
-        basket_settings._settings.update(settings)
-        yield
-    finally:
-        basket_settings._settings.update(default_settings)
 
 
 class BasketAggregationTestCase(TestCase):

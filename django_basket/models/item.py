@@ -61,5 +61,5 @@ def get_basket_item_model() -> Type[Union[DynamicBasketItem, models.Model]]:
         return DynamicBasketItem
     product_model = load_module(basket_settings.basket_item_model)
     if not product_model:
-        raise ImproperlyConfigured("`BASKET_PRODUCT_MODEL` is empty")
+        raise ImproperlyConfigured("`basket_item_model` is empty")
     return product_model
