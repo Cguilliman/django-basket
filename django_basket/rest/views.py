@@ -77,7 +77,6 @@ class BasketRemoveProductsAPIView(BasketGettingViewMixin, CreateAPIView):
 
 
 class BasketCleanAPIView(BasketGettingViewMixin, APIView):
-    permission_classes = (IsAuthenticated, )
 
     def post(self, request, *args, **kwargs):
         BasketAggregator(self.get_object()).empty_basket()
@@ -85,7 +84,6 @@ class BasketCleanAPIView(BasketGettingViewMixin, APIView):
 
 
 class BasketAmountAPIVIew(BasketGettingViewMixin, APIView):
-    permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
         return Response(

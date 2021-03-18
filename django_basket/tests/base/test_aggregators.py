@@ -124,7 +124,7 @@ class BasketAggregationTestCase(TestCase):
             basket_settings._settings["is_delete_removing"] = False
             self.assertEqual(BaseBasket.objects.count(), 0)
             aggregator = get_basket_aggregator(self.request)
-            with self.assertRaises(AttributeError):
+            with self.assertRaises(TypeError):
                 aggregator.create_items([
                     {"product": self.product1, "amount": 1},
                     {"product": self.product2, "amount": 3},

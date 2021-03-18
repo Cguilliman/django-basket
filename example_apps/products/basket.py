@@ -64,6 +64,10 @@ def create_items(basket: "BaseBasket", validated_data: List[Dict]) -> List[Baske
     return adding_items
 
 
+def custom_schema_create_items(basket: "BaseBasket", validated_data: List[BasketItem]) -> List[BasketItem]:
+    return validated_data
+
+
 def get_basket_items_amount(basket) -> int:
     return (
         basket
@@ -71,4 +75,12 @@ def get_basket_items_amount(basket) -> int:
         .all()
         .aggregate(total_amount=Coalesce(Sum("amount"), 0))
         .get("total_amount")
+    )
+
+
+def get_dynamic_basket_items_amount(basket) -> int:
+    if basket.basket_items.first():
+        print(basket.basket_items.first().amount)
+    return sum(
+        [item.content_object.amount for item in basket.basket_items.all()]
     )

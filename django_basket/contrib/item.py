@@ -1,4 +1,4 @@
-from typing import Union, Iterable, Type, List
+from typing import Union, Iterable, Type, List, Tuple
 from decimal import Decimal
 
 from django.db.models import Sum, Model
@@ -24,14 +24,13 @@ class BasketItemAggregator(BaseBasketItemHelper):
         ).get("total_price")
         return res
 
-    def items_create(self, validated_data: List[Model]) -> List[Model]:
+    def items_create(self, validated_data: List) -> Tuple[List[Model], bool]:
         """Create basket items, use only custom implementation"""
         creation_function = load_module(basket_settings.items_create_function)
         if not creation_function or not callable(creation_function):
-            raise AttributeError(
-                "Basket item creation is not implemented, fill in `items_create_function` setting"
-            )
-        return creation_function(self.basket, validated_data)
+            return validated_data, False
+
+        return creation_function(self.basket, validated_data), True
 
 
 class DynamicBasketItemAggregator(BasketItemAggregator):

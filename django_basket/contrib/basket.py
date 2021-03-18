@@ -41,8 +41,15 @@ class BasketAggregator(DefaultBasketHelper):
 
     def create_items(self, data: List[Dict]):
         """Create basket items and add it to available basket"""
-        items = self.items_aggregator.items_create(data)
-        return self.add_many(items)
+        items, is_custom_function = self.items_aggregator.items_create(data)
+        try:
+            return self.add_many(items)
+        except Exception as e:
+            if is_custom_function:
+                raise AttributeError(
+                    "Basket item creation is not implemented, fill in `items_create_function` setting"
+                )
+            raise e
 
     @settings_function(func_path=basket_settings.price_calc_function)
     def calculate_price(self):

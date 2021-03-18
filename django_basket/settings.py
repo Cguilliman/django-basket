@@ -37,7 +37,7 @@ basket_settings.add("remove_functions", "remove_items")
 basket_settings.add("is_update_while_merging", "is_update_while_merging", False)
 basket_settings.add("merging", "merging")
 basket_settings.add("items_create_function", "items_create")
-basket_settings.add("basket_items_amount", "get_basket_items_amount")
+basket_settings.add("basket_items_amount", "basket_amount_calculation")
 basket_settings.add("is_merging_on_login", "is_merging_on_login", True)
 # Price stuff
 basket_settings.add("price_field_name", "price_field_name", "price")

@@ -24,14 +24,22 @@ BasketItemsSerializer = get_basket_item_serializer_class()
 BasketItemCreateSerializer = load_module(basket_settings.basket_item_create_serializer, BasketItemsSerializer)
 
 
-class BasketItemsCreateSerializer(serializers.Serializer):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if BasketItemCreateSerializer:
-            self.fields["basket_items"] = serializers.ListSerializer(
+def _get_basket_create_serializer_class():
+    if BasketItemCreateSerializer:
+        class KlassSerializer(serializers.Serializer):
+            basket_items = serializers.ListSerializer(
                 child=BasketItemCreateSerializer(), allow_empty=False
             )
+    else:
+        class KlassSerializer(serializers.Serializer):
+            basket_items = serializers.PrimaryKeyRelatedField(
+                queryset=load_module(basket_settings.basket_item_model).objects.all(),
+                many=True,
+            )
+    return KlassSerializer
+
+
+BasketItemsCreateSerializer = _get_basket_create_serializer_class()
 
 
 class DynamicProductSerializer(serializers.ModelSerializer):
@@ -62,7 +70,7 @@ class BasketSerializer(serializers.ModelSerializer):
             return DynamicProductSerializer(basket_items, many=True).data
         if BasketItemsSerializer:
             return BasketItemsSerializer(basket_items, many=True).data
-        return basket_items.values_list("pk", flat=True)
+        return list(basket_items.values_list("pk", flat=True))
 
 
 class BasketAddSerializer(serializers.Serializer):

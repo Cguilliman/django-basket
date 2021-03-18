@@ -129,7 +129,7 @@ apply structure like:
 
 And return same as basket receive structure.
 
-``api/basket/add/items/`` - Custom basket items adding. To customize
+``api/basket/create/items/`` - Custom basket items adding. To customize
 adding process, create item adding serializer and basket creation
 creator:
 
@@ -169,7 +169,7 @@ That config it in settings file:
    }
 
 Now you can use advance basket items adding. Set POST method request to
-``api/basket/add/items/`` with body:
+``api/basket/create/items/`` with body:
 
 .. code:: json
 
@@ -302,11 +302,11 @@ fields, with the same name as ``price_field_name``
 ``api/basket/add/``.
 
 ``item_create_serializer`` - Path to nested basket items creation
-serializer. Used in ``api/basket/add/items/``.
+serializer. Used in ``api/basket/create/items/``.
 
 ``items_create_serializer`` - Path to general basket items creations
 serializer, which contain ``item_create_serializer`` and used in
-``api/basket/add/items``.
+``api/basket/create/items/``.
 
 ``retrieve_view`` - Path to custom retrieve basket view, used in
 ``api/basket/``.
@@ -321,7 +321,7 @@ serializer, which contain ``item_create_serializer`` and used in
 ``api/basket/clean/``.
 
 ``add_items_view`` - Path to custom basket items creation, used in
-``api/basket/add/items/``.
+``api/basket/create/items/``.
 
 ``items_amount_view`` - Path to custom basket amount of items receive,
 used in ``api/basket/amount/``.
