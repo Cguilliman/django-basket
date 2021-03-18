@@ -11,6 +11,6 @@ coverage run -a -m django test --settings=django_basket.tests.settings.dynamic_s
 # Delete copied migrations
 rm ./django_basket/migrations/0*
 coverage combine
-#coverage report
-#coverage xml
-coverage html
+coverage report
+coverage xml
+#coverage html
