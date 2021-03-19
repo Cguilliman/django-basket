@@ -11,6 +11,8 @@ from ..settings import basket_settings
 from ..utils import load_module
 
 
+# TODO: Re-factor basket-basketItem relation to foreignKey from item
+#       Create base basket item model with implemented relation
 class DynamicBasketItem(models.Model):
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE
@@ -28,6 +30,7 @@ class DynamicBasketItem(models.Model):
         return getattr(self.content_object, basket_settings.price_field_name, Decimal(0))
 
 
+# TODO: Make availability to set custom dynamic basket item model
 def get_basket_item_model() -> Type[Union[DynamicBasketItem, models.Model]]:
     if basket_settings.is_dynamic:
         return DynamicBasketItem
