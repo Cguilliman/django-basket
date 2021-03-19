@@ -25,35 +25,7 @@ class DynamicBasketItem(models.Model):
 
     @property
     def price(self) -> Union[int, float, Decimal]:
-        return getattr(
-            self.content_object,
-            basket_settings.price_field_name  # `price` by default
-        )
-
-    # TODO: Re-factor
-    @classmethod
-    def create_item(cls, objs) -> List["DynamicBasketItem"]:
-        """Create products and return in collection"""
-        if basket_settings.is_postgres:
-            # postgres db backend after bulk creation
-            # return objects with auto incremented primary field
-            return cls.objects.bulk_create([
-                cls(
-                    content_type=ContentType.objects.get_for_model(obj),
-                    object_id=obj.id,
-                ) for obj in objs
-            ])
-
-        products = []
-        for obj in objs:
-            product = cls(
-                content_type=ContentType.objects.get_for_model(obj),
-                object_id=obj.id,
-            )
-            product.save()
-            products.append(product)
-
-        return products
+        return getattr(self.content_object, basket_settings.price_field_name, Decimal(0))
 
 
 def get_basket_item_model() -> Type[Union[DynamicBasketItem, models.Model]]:

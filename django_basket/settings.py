@@ -28,18 +28,18 @@ basket_settings = Settings()
 # General
 basket_settings.add("is_postgres", default=(connection.vendor == "postgresql"))
 basket_settings.add("is_dynamic", "is_dynamic_basket_item_field", False)
-basket_settings.add("is_delete_removing", "is_delete_removing", False)
+basket_settings.add("is_delete_removing", "is_delete_on_removing", False)
 basket_settings.add("adding_function", "basket_item_adding")
 basket_settings.add("empty_function", "empty_basket")
 basket_settings.add("create_empty_basket_function", "create_empty_basket")
 basket_settings.add("basket_item_aggregator", "item_aggregator")
-basket_settings.add("remove_functions", "remove_items")
+basket_settings.add("remove_function", "remove_items")
 basket_settings.add("is_update_while_merging", "is_update_while_merging", False)
 basket_settings.add("merging", "merging")
 basket_settings.add("items_create_function", "items_create")
 basket_settings.add("basket_items_amount", "basket_amount_calculation")
 basket_settings.add("is_merging_on_login", "is_merging_on_login", True)
-# Price stuff
+# Item price
 basket_settings.add("price_field_name", "price_field_name", "price")
 basket_settings.add("price_calc_function", "price_calculating")
 # Basket model

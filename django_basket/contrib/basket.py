@@ -74,7 +74,7 @@ class BasketAggregator(DefaultBasketHelper):
                 self.basket.basket_items.clear()
         self.calculate_price()
 
-    @settings_function(func_path=basket_settings.remove_functions)
+    @settings_function(func_path=basket_settings.remove_function)
     def remove(self, items: List[Model]):
         """Remove items from basket"""
         if basket_settings.is_dynamic:

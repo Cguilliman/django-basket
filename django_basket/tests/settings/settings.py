@@ -77,7 +77,7 @@ DJANGO_BASKET = {
     "items_serializer": "example_apps.products.basket.BasketItemSerializer",
     "item_create_serializer": "example_apps.products.basket.BasketItemCreateSerializer",
     "items_create": "example_apps.products.basket.create_items",
-    "is_delete_removing": True,
+    "is_delete_on_removing": True,
     "basket_amount_calculation": "example_apps.products.basket.get_basket_items_amount",
     "item_helper": "example_apps.products.basket.BasketItemHelper",
 
