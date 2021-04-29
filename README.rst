@@ -1,7 +1,5 @@
-DJANGO-IB-BASKET |PiPI version|
+DJANGO-IB-BASKET
 ================
-
-|Coverage| |Build Status|
 
 Implement basket fullstack basket functionality.
 
